@@ -1,5 +1,7 @@
 {
 	"files.associations": {
 		"*.css": "tailwindcss"
-	}
+	},
+	"workbench.editor.labelFormat": "short",
+	"breadcrumbs.enabled": true
 }
