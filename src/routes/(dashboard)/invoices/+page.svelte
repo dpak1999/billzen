@@ -1,13 +1,12 @@
 <script lang="ts">
-	import Button, { buttonVariants } from '$lib/components/ui/button/button.svelte';
+	import Button from '$lib/components/ui/button/button.svelte';
 	import * as InputGroup from '$lib/components/ui/input-group/index.js';
 	import * as Table from '$lib/components/ui/table/index.js';
-	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+	import * as Card from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
-	import { EyeIcon, PlusIcon, SearchIcon, EllipsisVerticalIcon } from '@lucide/svelte';
+	import { EyeIcon, PlusIcon, SearchIcon } from '@lucide/svelte';
 	import TotalAmountView from '$lib/components/total-amount-view.svelte';
-
-	let showNewDialog = $state(false);
+	import InvoiceAction from '$lib/components/invoice-action.svelte';
 </script>
 
 <svelte:head>
@@ -26,11 +25,11 @@
 
 		<Button variant="default" size="default">
 			<PlusIcon />
-			Create Invoice
+			Add Invoice
 		</Button>
 	</div>
 
-	<div class="mt-6">
+	<div class="mt-6 hidden md:block">
 		<Table.Root>
 			<Table.Header>
 				<Table.Row>
@@ -58,29 +57,33 @@
 						</a>
 					</Table.Cell>
 					<Table.Cell>
-						<DropdownMenu.Root>
-							<DropdownMenu.Trigger class={buttonVariants({ variant: 'outline', size: 'icon-sm' })}>
-								<EllipsisVerticalIcon />
-							</DropdownMenu.Trigger>
-							<DropdownMenu.Content class="w-40" align="end">
-								<DropdownMenu.Group>
-									<DropdownMenu.Item onSelect={() => (showNewDialog = true)}>
-										Send via mail
-									</DropdownMenu.Item>
-									<DropdownMenu.Item>Edit</DropdownMenu.Item>
-
-									<DropdownMenu.Separator />
-									<DropdownMenu.Group>
-										<DropdownMenu.Item class="text-red-500">Delete</DropdownMenu.Item>
-										<DropdownMenu.Item class="text-red-500">Cancel</DropdownMenu.Item>
-									</DropdownMenu.Group>
-								</DropdownMenu.Group>
-							</DropdownMenu.Content>
-						</DropdownMenu.Root>
+						<InvoiceAction />
 					</Table.Cell>
 				</Table.Row>
 			</Table.Body>
 		</Table.Root>
+	</div>
+
+	<div class="mt-6 sm:hidden">
+		<Card.Root class="w-full">
+			<Card.Content>
+				<div class="flex items-center justify-between">
+					<span class="font-semibold">INV2123</span>
+					<InvoiceAction />
+				</div>
+
+				<div class="mt-8 flex items-center justify-between">
+					<div class="flex flex-col items-start gap-1">
+						<span>ABC corp</span>
+						<span class="text-sm text-muted-foreground">17/1/2025</span>
+					</div>
+					<div class="flex flex-col items-end gap-1">
+						<span>$112.00</span>
+						<Badge variant="success">Paid</Badge>
+					</div>
+				</div>
+			</Card.Content>
+		</Card.Root>
 	</div>
 
 	<TotalAmountView label="Total" amount="$1,444" />
