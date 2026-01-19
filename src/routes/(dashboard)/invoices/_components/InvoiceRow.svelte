@@ -1,0 +1,28 @@
+<script lang="ts">
+	import * as Table from '$lib/components/ui/table/index.js';
+	import { EyeIcon } from '@lucide/svelte';
+	import InvoiceAction from '$lib/components/invoice-action.svelte';
+	import type { Invoice } from '../../../../global';
+	import StatusBadge from './StatusBadge.svelte';
+	import { formatCurrency, sumLineItems } from '$lib/utils/moneyHelper';
+
+	export let invoice: Invoice;
+</script>
+
+<Table.Row>
+	<Table.Cell class="font-medium">{invoice.invoiceNumber}</Table.Cell>
+	<Table.Cell>
+		<StatusBadge invoiceStatus={invoice.invoiceStatus} />
+	</Table.Cell>
+	<Table.Cell>{invoice.dueDate}</Table.Cell>
+	<Table.Cell class="truncate whitespace-nowrap">{invoice.client.name}</Table.Cell>
+	<Table.Cell>$ {formatCurrency(sumLineItems(invoice.lineItems))}</Table.Cell>
+	<Table.Cell>
+		<a href="/clients">
+			<EyeIcon class="cursor-pointer" />
+		</a>
+	</Table.Cell>
+	<Table.Cell>
+		<InvoiceAction />
+	</Table.Cell>
+</Table.Row>
