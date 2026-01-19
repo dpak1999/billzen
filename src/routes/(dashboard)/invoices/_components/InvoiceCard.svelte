@@ -4,6 +4,7 @@
 	import StatusBadge from './StatusBadge.svelte';
 	import type { Invoice } from '../../../../global';
 	import { formatCurrency, sumLineItems } from '$lib/utils/moneyHelper';
+	import { convertDate } from '$lib/utils/dateHelpers';
 
 	export let invoice: Invoice;
 </script>
@@ -18,11 +19,11 @@
 		<div class="mt-8 flex items-center justify-between">
 			<div class="flex flex-col items-start gap-1">
 				<span class="truncate whitespace-nowrap">{invoice.client.name}</span>
-				<span class="text-sm text-muted-foreground">{invoice.dueDate}</span>
+				<span class="text-sm text-muted-foreground">{convertDate(invoice.dueDate)}</span>
 			</div>
 			<div class="flex flex-col items-end gap-1">
 				<span>$ {formatCurrency(sumLineItems(invoice.lineItems))}</span>
-				<StatusBadge invoiceStatus={invoice.invoiceStatus} />
+				<StatusBadge invoiceStatus={invoice.invoiceStatus} invoiceDate={invoice.dueDate} />
 			</div>
 		</div>
 	</Card.Content>

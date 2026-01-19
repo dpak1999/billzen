@@ -8,6 +8,7 @@
 	import InvoiceRow from './_components/InvoiceRow.svelte';
 	import * as Table from '$lib/components/ui/table/index.js';
 	import InvoiceCard from './_components/InvoiceCard.svelte';
+	import { formatCurrency, sumInvoices } from '$lib/utils/moneyHelper';
 
 	onMount(() => {
 		loadInvoices();
@@ -62,5 +63,5 @@
 		{/each}
 	</div>
 
-	<TotalAmountView label="Total" amount="$1,444" />
+	<TotalAmountView label="Total" amount={`$ ${formatCurrency(sumInvoices($invoices))}`} />
 </section>

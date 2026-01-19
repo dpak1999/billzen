@@ -5,6 +5,7 @@
 	import type { Invoice } from '../../../../global';
 	import StatusBadge from './StatusBadge.svelte';
 	import { formatCurrency, sumLineItems } from '$lib/utils/moneyHelper';
+	import { convertDate } from '$lib/utils/dateHelpers';
 
 	export let invoice: Invoice;
 </script>
@@ -12,9 +13,9 @@
 <Table.Row>
 	<Table.Cell class="font-medium">{invoice.invoiceNumber}</Table.Cell>
 	<Table.Cell>
-		<StatusBadge invoiceStatus={invoice.invoiceStatus} />
+		<StatusBadge invoiceStatus={invoice.invoiceStatus} invoiceDate={invoice.dueDate} />
 	</Table.Cell>
-	<Table.Cell>{invoice.dueDate}</Table.Cell>
+	<Table.Cell>{convertDate(invoice.dueDate)}</Table.Cell>
 	<Table.Cell class="truncate whitespace-nowrap">{invoice.client.name}</Table.Cell>
 	<Table.Cell>$ {formatCurrency(sumLineItems(invoice.lineItems))}</Table.Cell>
 	<Table.Cell>

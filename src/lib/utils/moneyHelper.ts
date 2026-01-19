@@ -1,4 +1,4 @@
-import type { LineItems } from "../../global"
+import type { Invoice, LineItems } from "../../global"
 
 export const sumLineItems = (lineItems: LineItems[] | undefined): number => {
   if (!lineItems) {
@@ -19,4 +19,12 @@ export const twoDecimals = (num: number): string => {
 
 export const addThousandsSeparator = (amount: string): string => {
   return amount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+}
+
+export const sumInvoices = (invoices: Invoice[] | undefined): number => {
+  if (!invoices) return 0
+  return invoices.reduce((prevValue, curValue) => {
+    const invoiceSum = sumLineItems(curValue.lineItems);
+    return prevValue + invoiceSum;
+  }, 0)
 }
