@@ -1,6 +1,6 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card/index.js';
-	import InvoiceAction from '$lib/components/invoice-action.svelte';
+	import InvoiceAction from './invoice-action.svelte';
 	import StatusBadge from './StatusBadge.svelte';
 	import type { Invoice } from '../../../../global';
 	import { formatCurrency, sumLineItems } from '$lib/utils/moneyHelper';
@@ -13,7 +13,7 @@
 	<Card.Content>
 		<div class="flex items-center justify-between">
 			<span class="font-semibold">{invoice.invoiceNumber}</span>
-			<InvoiceAction />
+			<InvoiceAction invoiceStatus={invoice.invoiceStatus} />
 		</div>
 
 		<div class="mt-8 flex items-center justify-between">

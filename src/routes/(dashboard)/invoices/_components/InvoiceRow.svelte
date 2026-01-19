@@ -1,7 +1,7 @@
 <script lang="ts">
 	import * as Table from '$lib/components/ui/table/index.js';
 	import { EyeIcon } from '@lucide/svelte';
-	import InvoiceAction from '$lib/components/invoice-action.svelte';
+	import InvoiceAction from './invoice-action.svelte';
 	import type { Invoice } from '../../../../global';
 	import StatusBadge from './StatusBadge.svelte';
 	import { formatCurrency, sumLineItems } from '$lib/utils/moneyHelper';
@@ -24,6 +24,6 @@
 		</a>
 	</Table.Cell>
 	<Table.Cell>
-		<InvoiceAction />
+		<InvoiceAction invoiceStatus={invoice.invoiceStatus} />
 	</Table.Cell>
 </Table.Row>
